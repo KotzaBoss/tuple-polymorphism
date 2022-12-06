@@ -8,9 +8,9 @@ namespace rs = std::ranges;
 namespace vw = rs::views;
 
 
-///////////////////////////////////////////////////////////////
-///////////////////////// NON VIRTUAL /////////////////////////
-///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+///////////////////////// VIRTUAL /////////////////////////
+///////////////////////////////////////////////////////////
 
 namespace Virtual {
 
@@ -87,7 +87,7 @@ public:
 ///////////////////////// NON VIRTUAL /////////////////////////
 ///////////////////////////////////////////////////////////////
 
-namespace NonVirtual {
+namespace Nonvirtual {
 
 template<typename T, typename... Ts>
 concept same_as_any = (... or std::same_as<T, Ts>);
@@ -188,7 +188,7 @@ public:
 #define SOURCE_SELECTED
 #include <benchmark/benchmark.h>
 
-static void VirtualSum(benchmark::State& state) {
+static void virtual_sum(benchmark::State& state) {
 	using namespace Virtual;
 
 	auto tm = ThingManager();
@@ -203,8 +203,8 @@ static void VirtualSum(benchmark::State& state) {
 	}
 }
 
-static void NonVirtualSum(benchmark::State& state) {
-	using namespace NonVirtual;
+static void non_virtual_sum(benchmark::State& state) {
+	using namespace Nonvirtual;
 
 	auto tm = ThingManager<SomeThing, OtherThing>();
 	for (auto i = 0; i < MAX_THINGS; ++i) {
@@ -219,8 +219,8 @@ static void NonVirtualSum(benchmark::State& state) {
 }
 
 
-BENCHMARK(VirtualSum);
-BENCHMARK(NonVirtualSum);
+BENCHMARK(virtual_sum);
+BENCHMARK(non_virtual_sum);
 
 BENCHMARK_MAIN();
 #endif
@@ -228,7 +228,7 @@ BENCHMARK_MAIN();
 #ifdef NON_VIRTUAL
 #define SOURCE_SELECTED
 auto main() -> int {
-	using namespace NonVirtual;
+	using namespace Nonvirtual;
 
 	auto tm = ThingManager<SomeThing, OtherThing>();
 	for (auto i = 0; i < MAX_THINGS; ++i) {
