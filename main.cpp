@@ -192,7 +192,7 @@ static void virtual_sum(benchmark::State& state) {
 	using namespace Virtual;
 
 	auto tm = ThingManager();
-	for (auto i = 0; i < MAX_THINGS; ++i) {
+	for (auto i = 1; i <= MAX_THINGS; ++i) {
 		tm.store<SomeThing>(i);
 		tm.store<OtherThing>(i);
 	}
@@ -207,7 +207,7 @@ static void non_virtual_sum(benchmark::State& state) {
 	using namespace Nonvirtual;
 
 	auto tm = ThingManager<SomeThing, OtherThing>();
-	for (auto i = 0; i < MAX_THINGS; ++i) {
+	for (auto i = 1; i <= MAX_THINGS; ++i) {
 		tm.store(SomeThing(i));
 		tm.store(OtherThing(static_cast<float>(i)));
 	}
@@ -231,7 +231,7 @@ auto main() -> int {
 	using namespace Nonvirtual;
 
 	auto tm = ThingManager<SomeThing, OtherThing>();
-	for (auto i = 0; i < MAX_THINGS; ++i) {
+	for (auto i = 1; i <= MAX_THINGS; ++i) {
 		tm.store(SomeThing(i));
 		tm.store(OtherThing(static_cast<float>(i)));
 	}
@@ -246,7 +246,7 @@ auto main() -> int {
 	using namespace Virtual;
 
 	auto tm = ThingManager();
-	for (auto i = 0; i < MAX_THINGS; ++i) {
+	for (auto i = 1; i <= MAX_THINGS; ++i) {
 		tm.store<SomeThing>(i);
 		tm.store<OtherThing>(i);
 	}
